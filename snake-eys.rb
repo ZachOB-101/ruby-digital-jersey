@@ -16,13 +16,15 @@ user_roll = gets.chomp.to_i
 
 i=1
 x = user_roll
+total = 0
 
-while i<=user_roll
+while i<=x
     number = dice_roll
     i+=1
     puts number
-    total = number
+    total += number
 end 
 
+puts total
 
 
