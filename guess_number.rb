@@ -24,22 +24,45 @@
 #   end
 # end
 
-random_number = Random.new.rand(1..10)
-guess_total = 0
-loop do 
-    puts "Guess the random number!"
-    user_guess = gets.chomp.to_i
-    guess_total +=1
-    if user_guess == random_number
-        puts "You got it right!"
-        puts "It took you this many guesses: #{guess_total}!"
-        break
-    else
-        puts "You got it wrong!"
-        if user_guess < random_number
-            puts "Go higher!"
-        else user_guess > random_number
-            puts "Go lower!"
+class GuessNumber
+    attr_writer :lower, :upper
+    def intialize
+        @lower = lower
+        @upper = upper
+    end
+
+    def guess_num(lower, upper)
+        random_number = Random.new.rand(lower..upper)
+        guess_total = 0
+        starting = Time.now
+        loop do 
+            puts "Guess the random number!"
+            user_guess = gets.chomp.to_i
+            guess_total +=1
+            if user_guess == random_number
+                puts "You got it right!"
+                puts "It took you this many guesses: #{guess_total}!"
+                elapsed = Time.now - starting
+                elapsed = elapsed.to_i
+                puts "It took you " + elapsed.to_s + " seconds."
+                break
+            else
+                puts "You got it wrong!"
+                if user_guess < random_number
+                    puts "Go higher!"
+                    puts random_number
+                else user_guess > random_number
+                    puts "Go lower!"
+                    puts random_number
+                end
+            end
         end
     end
 end
+
+guess = GuessNumber.new
+puts "Enter your lower limit."
+lower_num = gets.chomp.to_i
+puts "Enter your higher limit."
+higher_num = gets.chomp.to_i
+GuessNumber.new.guess_num(lower_num, higher_num)
