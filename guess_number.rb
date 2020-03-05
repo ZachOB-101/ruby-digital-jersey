@@ -24,7 +24,47 @@
 #   end
 # end
 
-class GuessNumber
+# Random Number Guesser
+
+# class GuessNumber
+#     attr_writer :lower, :upper
+#     def intialize
+#         @lower = lower
+#         @upper = upper
+#     end
+
+#     def guess_num(lower, upper)
+#         random_number = Random.new.rand(lower..upper)
+#         guess_total = 0
+#         starting = Time.now
+#         loop do 
+#             puts "Guess the random number!"
+#             user_guess = gets.chomp.to_i
+#             guess_total +=1
+#             if user_guess == random_number
+#                 puts "You got it right!"
+#                 puts "It took you this many guesses: #{guess_total}!"
+#                 elapsed = Time.now - starting
+#                 elapsed = elapsed.to_i
+#                 puts "It took you " + elapsed.to_s + " seconds."
+#                 break
+#             else
+#                 puts "You got it wrong!"
+#                 if user_guess < random_number
+#                     puts "Go higher!"
+#                     puts random_number
+#                 else user_guess > random_number
+#                     puts "Go lower!"
+#                     puts random_number
+#                 end
+#             end
+#         end
+#     end
+# end
+
+#User number guesser
+
+class GuessNumberUser
     attr_writer :lower, :upper
     def intialize
         @lower = lower
@@ -35,34 +75,37 @@ class GuessNumber
         random_number = Random.new.rand(lower..upper)
         guess_total = 0
         starting = Time.now
+        # random_number_higher = nil 
+        # random_number_lower = nil 
         loop do 
-            puts "Guess the random number!"
-            user_guess = gets.chomp.to_i
+            puts "Is your number " + random_number.to_s + "? Answer with y/n."
+            user_answer = gets.chomp
             guess_total +=1
-            if user_guess == random_number
-                puts "You got it right!"
-                puts "It took you this many guesses: #{guess_total}!"
+            if user_answer == "y"
+                puts "The program got it right!"
+                puts "It took this many guesses: #{guess_total}!"
                 elapsed = Time.now - starting
                 elapsed = elapsed.to_i
                 puts "It took you " + elapsed.to_s + " seconds."
                 break
             else
-                puts "You got it wrong!"
-                if user_guess < random_number
-                    puts "Go higher!"
-                    puts random_number
-                else user_guess > random_number
-                    puts "Go lower!"
-                    puts random_number
+                puts "Is your number higher or lower? Answer with h or l."
+                adjust_guess = gets.chomp
+                if adjust_guess == "h"
+                    random_number_higher = Random.new.rand(random_number..upper)
+                    random_number = random_number_higher
+                elsif adjust_guess == "l"
+                    random_number_lower = Random.new.rand(lower..random_number)
+                    random_number = random_number_higher
                 end
             end
         end
     end
 end
 
-guess = GuessNumber.new
+guess = GuessNumberUser.new
 puts "Enter your lower limit."
 lower_num = gets.chomp.to_i
 puts "Enter your higher limit."
 higher_num = gets.chomp.to_i
-GuessNumber.new.guess_num(lower_num, higher_num)
+GuessNumberUser.new.guess_num(lower_num, higher_num)
